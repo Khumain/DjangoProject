@@ -25,7 +25,7 @@ def maintenance(request):
             print("Got c_list",len(c_list))
             data['currencies'] = c_list
             return HttpResponseRedirect(reverse('currencies'))
-        if choice == "currencies_csv":
+        elif choice == "currencies_csv":
             support_functions.add_currencies(support_functions.get_currency_list_from_csv())
             c_list = Currency.objects.all()
             print("Got c_list",len(c_list))
