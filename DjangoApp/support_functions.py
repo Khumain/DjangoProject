@@ -1,4 +1,6 @@
 from DjangoApp.models import *
+import csv
+
 
 def get_currency_list():
     currency_list = list()
@@ -23,6 +25,16 @@ def get_currency_list():
     return currency_list
 
 
+def get_currency_list_from_csv():
+    from os import path
+    basepath = path.dirname(__file__)
+    filepath = path.abspath(path.join(basepath, "..", "static", "DjangoApp", "currencies.csv"))
+    with open(filepath) as f:
+        currency_list = list(csv.reader(f, delimiter=","))
+        print(currency_list)
+    return currency_list
+
+
 def add_currencies(currency_list):
     for currency in currency_list:
         currency_name = currency[0]
@@ -35,6 +47,10 @@ def add_currencies(currency_list):
             c = Currency(long_name=currency_name, iso=currency_symbol)
             c.save()  #To test out the code, replace this by print(c)
 
+
+def delete_currencies():
+    for c in Currency.objects.all():
+        c.delete()
 
 def get_currency_rates(iso_code):
     url = "http://www.xe.com/currencytables/?from=" + iso_code
