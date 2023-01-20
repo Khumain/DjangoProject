@@ -79,7 +79,7 @@ def register_new_user(request):
     if form.is_valid():
         new_user = form.save()
         dob = request.POST["dob"]
-        acct_holder = AccountHolder(user=new_user,date_of_birth=dob)
+        acct_holder = AccountHolder(user=new_user, date_of_birth=dob)
         acct_holder.save()
         return render(request,"home.html",context=dict())
     else:
